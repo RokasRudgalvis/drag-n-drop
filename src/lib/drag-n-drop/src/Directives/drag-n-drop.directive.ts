@@ -47,6 +47,7 @@ export class DragNDropDirective implements OnInit, OnDestroy {
     }
 
     updateArray() {
+        const initialEnableState = this.enabled;
         this.enabled = false;
         // Disable drag
         // noinspection JSIgnoredPromiseFromCall
@@ -61,7 +62,7 @@ export class DragNDropDirective implements OnInit, OnDestroy {
             this.getItems().then(() => {
                 this.listenToIndexChange();
 
-                this.enabled = true;
+                this.enabled = initialEnableState;
                 // noinspection JSIgnoredPromiseFromCall
                 this.enable();
             });
