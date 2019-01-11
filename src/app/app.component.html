@@ -1,0 +1,69 @@
+<div style="display: flex; align-items: center; padding: 24px;">
+    <button (click)="drag = !drag;"
+            style="
+                cursor: pointer;
+                background-color: #496C89;
+                color: rgba(255,255,255,.86);
+                padding: 10px;
+                margin-right: 25px;
+                border: 0;">
+        Toggle Drag & Drop
+    </button>
+</div>
+
+<div class="drag-and-drop-showcase">
+    <h2>#1 <b>Drag & Drop</b> functionality demonstration</h2>
+    <h4>Draggable is <b>{{ drag ? 'ON' : 'OFF'}}</b></h4>
+
+    <!---------------- Actual Integration START ---------------->
+
+    <!-- IMPORTANT Array elements container. Style it how you like -->
+    <div [dragNDrop]="{array: items, enabled: !!drag}">
+        <!-- IMPORTANT Array element's wrapper. Style it how you like -->
+        <div *ngFor="let item of items;">
+
+            <!-- Any object -->
+            <app-other [data]="item"></app-other>
+
+        </div>
+    </div>
+    <!---------------- Actual Integration END ---------------->
+
+
+
+    <h2>#2 <b>Drag & Drop</b> functionality demonstration</h2>
+    <h4>Draggable is <b>{{ drag ? 'ON' : 'OFF'}}</b></h4>
+
+    <!---------------- Actual Integration START ---------------->
+
+    <!-- IMPORTANT Array elements container. Style it how you like -->
+    <div [dragNDrop]="{array: items2, enabled: !!drag}">
+        <!-- IMPORTANT Array element's wrapper. Style it how you like -->
+        <div *ngFor="let item of items2;">
+
+            <!-- Any object -->
+            <div>
+            <img src="{{ item.image }}" width="100%" height="250px" style="object-fit: cover">
+            </div>
+
+        </div>
+    </div>
+    <!---------------- Actual Integration END ---------------->
+
+</div>
+
+
+<!----------- For showcase purposes only ----------->
+
+<div style="display: flex; align-items: center; padding: 24px;">
+    <button (click)="drag = !drag;"
+            style="
+                cursor: pointer;
+                background-color: #496C89;
+                color: rgba(255,255,255,.86);
+                padding: 10px;
+                margin-right: 25px;
+                border: 0;">
+        Toggle Drag & Drop
+    </button>
+</div>

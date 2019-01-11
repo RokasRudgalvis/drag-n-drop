@@ -1,0 +1,15 @@
+{
+  "name": "@rr2/drag-n-drop",
+  "version": "1.0.3",
+  "repository": "",
+  "author": "Rokas Rudgalvis <p.rokas.rudgalvis@gmail.com>",
+  "license": "GPL-3.0",
+  "private": false,
+  "ngPackage": {
+    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+    "lib": {
+      "entryFile": "src/public_api.ts"
+    },
+    "dest": "./dist"
+  }
+}

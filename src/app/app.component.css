@@ -1,0 +1,53 @@
+.drag-and-drop-showcase {
+    width: 100%;
+    overflow: hidden;
+    padding: 24px;
+    background-color: #718DA5;
+}
+
+.drag-and-drop-showcase h2 {
+    color: rgba(255,255,255,.86);
+    font-weight: 100;
+}
+
+.drag-and-drop-showcase h4 {
+    color: rgba(255,255,255,.86);
+    font-style: italic;
+    font-weight: 100;
+    margin: -20px 0 24px;
+}
+
+.drag-and-drop-showcase > div {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -5px;
+}
+
+.drag-and-drop-showcase > div > div {
+    padding: 5px;
+    box-sizing: border-box;
+    width: 25%;
+}
+
+
+.drag-n-drop--draggable {
+    animation: shake .3s infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-1deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(1deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
