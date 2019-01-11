@@ -49,7 +49,7 @@ export class DragNDropItem {
     }
 
     private addEvents() {
-        this._elementWrapper.onmousedown = event => this.onMouseDown(event);
+        this._element.onmousedown = event => this.onMouseDown(event);
         this._elementWrapper.ondragstart = () => false;
         this._elementWrapper.style.touchAction = 'none';
 
