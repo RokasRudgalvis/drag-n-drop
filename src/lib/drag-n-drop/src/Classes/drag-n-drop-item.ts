@@ -38,13 +38,13 @@ export class DragNDropItem {
 
     enable() {
         DragNDropItem.addDraggableAnimations(this._elementWrapper);
-        this._elementWrapper.style.cursor = 'move';
+        this._element.style.cursor = 'move';
         this.addEvents();
     }
 
     disable() {
         DragNDropItem.removeDraggableAnimations(this._elementWrapper);
-        this._elementWrapper.style.cursor = null;
+        this._element.style.cursor = null;
         this.removeEvents();
     }
 
