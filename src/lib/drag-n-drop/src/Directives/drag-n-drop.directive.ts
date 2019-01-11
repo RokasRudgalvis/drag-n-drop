@@ -6,7 +6,8 @@ import {Subscription} from 'rxjs';
     selector: '[dragNDrop]'
 })
 export class DragNDropDirective implements OnInit, OnDestroy {
-    @Output() reorder = new EventEmitter<{from: number, to: number}>();
+    @Output() reorder = new EventEmitter<{ from: number, to: number }>();
+
     @Input() set dragNDrop(control: { array: any[], enabled: boolean }) {
         this.enable(control.enabled === true);
         this.array = control.array;
@@ -40,6 +41,14 @@ export class DragNDropDirective implements OnInit, OnDestroy {
         this._S.forEach(s => s.unsubscribe());
     }
 
+    private async wait(delay) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, delay);
+        });
+    }
+
     private async getItems(): Promise<number> {
         const items = await this.itemsContainer.children;
         for (let i = 0; i < items.length; i++) {
@@ -49,7 +58,19 @@ export class DragNDropDirective implements OnInit, OnDestroy {
         return 0;
     }
 
-    private enable(value: boolean) {
+    private async enable(value: boolean) {
+        let restart = false;
+        for (let i = 0; this.items.length === 0; i++) {
+            await this.wait(i < 10 ? (i + 1) * 100 : 1000);
+            restart = true;
+        }
+
+        if (restart) {
+            // noinspection JSIgnoredPromiseFromCall
+            this.enable(value);
+        }
+
+
         if (value) {
             this.items.forEach(item => item.enable());
         } else {
