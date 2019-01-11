@@ -50,6 +50,7 @@ export class DragNDropItem {
 
     private addEvents() {
         this._element.onmousedown = event => this.onMouseDown(event);
+        this._element.ondragstart = () => false;
         this._elementWrapper.ondragstart = () => false;
         this._elementWrapper.style.touchAction = 'none';
 
@@ -57,7 +58,8 @@ export class DragNDropItem {
     }
 
     private removeEvents() {
-        this._elementWrapper.onmousedown = null;
+        this._element.onmousedown = null;
+        this._element.ondragstart = null;
         this._elementWrapper.ondragstart = null;
         this._elementWrapper.style.touchAction = null;
     }
