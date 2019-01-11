@@ -9,13 +9,18 @@ export class DragNDropDirective implements OnInit, OnDestroy {
     @Output() reorder = new EventEmitter<{ from: number, to: number }>();
 
     @Input() set dragNDrop(control: { array: any[], enabled: boolean }) {
-        this.enable(control.enabled === true);
         this.array = control.array;
+        this.enabled = control.enabled === true;
+
+        // noinspection JSIgnoredPromiseFromCall
+        this.enable();
     }
+
 
     private _S: Subscription[] = [];
     private array: any[];
     private items: DragNDropItem[] = [];
+    private enabled: boolean;
 
     private itemsContainer: HTMLElement;
 
@@ -41,6 +46,28 @@ export class DragNDropDirective implements OnInit, OnDestroy {
         this._S.forEach(s => s.unsubscribe());
     }
 
+    updateArray() {
+        this.enabled = false;
+        // Disable drag
+        // noinspection JSIgnoredPromiseFromCall
+        this.enable();
+
+        // Clear old items
+        this.items = [];
+
+        // Wait for one tick
+        setTimeout(() => {
+            // Get new items
+            this.getItems().then(() => {
+                this.listenToIndexChange();
+
+                this.enabled = true;
+                // noinspection JSIgnoredPromiseFromCall
+                this.enable();
+            });
+        });
+    }
+
     private async wait(delay) {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -49,8 +76,13 @@ export class DragNDropDirective implements OnInit, OnDestroy {
         });
     }
 
+    /**
+     * Gets HTML items
+     * Constructs class for each item
+     **/
     private async getItems(): Promise<number> {
         const items = await this.itemsContainer.children;
+        console.log(items);
         for (let i = 0; i < items.length; i++) {
             this.items.push(new DragNDropItem(<HTMLElement>items[i], i));
         }
@@ -58,20 +90,12 @@ export class DragNDropDirective implements OnInit, OnDestroy {
         return 0;
     }
 
-    private async enable(value: boolean) {
-        let restart = false;
+    private async enable() {
         for (let i = 0; this.items.length === 0; i++) {
             await this.wait(i < 10 ? (i + 1) * 100 : 1000);
-            restart = true;
         }
 
-        if (restart) {
-            // noinspection JSIgnoredPromiseFromCall
-            this.enable(value);
-        }
-
-
-        if (value) {
+        if (this.enabled) {
             this.items.forEach(item => item.enable());
         } else {
             this.items.forEach(item => item.disable());

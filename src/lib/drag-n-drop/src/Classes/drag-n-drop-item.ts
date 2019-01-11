@@ -51,7 +51,7 @@ export class DragNDropItem {
     private addEvents() {
         this._elementWrapper.onmousedown = event => this.onMouseDown(event);
         this._elementWrapper.ondragstart = () => false;
-        this._element.style.touchAction = 'none';
+        this._elementWrapper.style.touchAction = 'none';
 
         this.killDragStartOnImages();
     }
@@ -59,7 +59,7 @@ export class DragNDropItem {
     private removeEvents() {
         this._elementWrapper.onmousedown = null;
         this._elementWrapper.ondragstart = null;
-        this._element.style.touchAction = null;
+        this._elementWrapper.style.touchAction = null;
     }
 
     private onMouseDown(_event: MouseEvent) {
