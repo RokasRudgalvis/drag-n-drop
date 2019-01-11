@@ -79,7 +79,7 @@ export class DragNDropItem {
 
             // Its potential dropable if
             // ElementBelow is grandchild of a dragNDrop directive
-            if (elementBelow !== this._element) {
+            if (elementBelow !== this._element && elementBelow.parentElement) {
                 if (elementBelow.parentElement.parentElement) {
                     const dragNDrop = elementBelow.parentElement.closest('[ng-reflect-drag-n-drop]');
                     const dropableBelow = elementBelow.parentElement.closest('[data-index]');
@@ -102,7 +102,9 @@ export class DragNDropItem {
         this._elementClone = <HTMLElement>this._wrapperClone.firstElementChild;
 
         // Remove animations from draggable clone
-        DragNDropItem.removeDraggableAnimations(this._elementClone);
+        setTimeout(() => { // Run this on next tick
+            DragNDropItem.removeDraggableAnimations(this._elementClone);
+        });
 
         // Remember the click offsets
         this._shiftX = _event.clientX - this._elementWrapper.getBoundingClientRect().left;
