@@ -139,10 +139,7 @@ export class DragNDropItem {
             this._wrapperClone.parentNode.removeChild(this._wrapperClone);
             this._elementWrapper.style.opacity = null;
 
-            console.log({from: this._currentIndex, to: this._potentialIndex});
-
             if (this._potentialIndex !== null && this._potentialIndex !== this._currentIndex) {
-                console.log('Emiting', {from: this._currentIndex, to: this._potentialIndex});
                 this.indexChangeSource.next({from: this._currentIndex, to: this._potentialIndex});
                 this.currentIndex = this._potentialIndex;
             }

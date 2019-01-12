@@ -83,7 +83,6 @@ export class DragNDropDirective implements OnInit, OnDestroy {
      **/
     private async getItems(): Promise<number> {
         const items = await this.itemsContainer.children;
-        console.log(items);
         for (let i = 0; i < items.length; i++) {
             this.items.push(new DragNDropItem(<HTMLElement>items[i], i));
         }
