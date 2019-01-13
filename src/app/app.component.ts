@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild, ViewChildren} from '@angular/core';
+import {DragNDropDirective} from '../lib/drag-n-drop/src/Directives/drag-n-drop.directive';
 
 @Component({
     selector: 'app-root',
@@ -6,6 +7,8 @@ import {Component} from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+    @ViewChild(DragNDropDirective) dragNDropDirective;
+
     drag = false;
 
     items = [
@@ -24,4 +27,13 @@ export class AppComponent {
         {image: '/assets/5.jpg'},
         {image: '/assets/6.jpg'},
     ];
+
+    add() {
+        this.items.push({name: '' + (this.items.length + 1)});
+        this.dragNDropDirective.updateArray();
+    }
+
+    reorder(indexChange: {from: number, to: number}) {
+        console.log('Index changed:', indexChange);
+    }
 }

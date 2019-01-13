@@ -147,7 +147,7 @@ export class DragNDropItem {
     }
 
     private killDragStartOnImages() {
-        const imgs = <HTMLElement[]><unknown>this._element.querySelectorAll('img');
+        const imgs = <HTMLElement[]><unknown>this._elementWrapper.querySelectorAll('img');
 
         for (let i = 0; i < imgs.length; i++) {
             imgs[i].setAttribute('ondragstart', 'return false');

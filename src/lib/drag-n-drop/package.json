@@ -1,6 +1,6 @@
 {
   "name": "@rr2/drag-n-drop",
-  "version": "1.0.10",
+  "version": "1.0.14",
   "repository": "",
   "author": "Rokas Rudgalvis <p.rokas.rudgalvis@gmail.com>",
   "license": "GPL-3.0",
@@ -11,5 +11,13 @@
       "entryFile": "src/public_api.ts"
     },
     "dest": "./dist"
-  }
+  },
+  "keywords": [
+    "Angular",
+    "Drag and drop",
+    "Array",
+    "Two dimensional",
+    "Sorting",
+    "Grid"
+  ]
 }

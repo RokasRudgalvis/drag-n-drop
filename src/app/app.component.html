@@ -9,6 +9,16 @@
                 border: 0;">
         Toggle Drag & Drop
     </button>
+    <button (click)="add()"
+            style="
+                cursor: pointer;
+                background-color: #496C89;
+                color: rgba(255,255,255,.86);
+                padding: 10px;
+                margin-right: 25px;
+                border: 0;">
+        Add
+    </button>
 </div>
 
 <div class="drag-and-drop-showcase">
@@ -18,7 +28,7 @@
     <!---------------- Actual Integration START ---------------->
 
     <!-- IMPORTANT Array elements container. Style it how you like -->
-    <div [dragNDrop]="{array: items, enabled: !!drag}">
+    <div [dragNDrop]="{array: items, enabled: drag}" (reorder)="reorder($event)">
         <!-- IMPORTANT Array element's wrapper. Style it how you like -->
         <div *ngFor="let item of items;">
 
