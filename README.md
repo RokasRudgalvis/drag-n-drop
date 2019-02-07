@@ -1,19 +1,19 @@
-#Angular Drag and Drop sorting grid
+# Angular Drag and Drop sorting grid
 Angular directive that allows you to build any type of sortable array HTML structure using native JavaScript mouse events. 
 
-##Demo [StackBlitz](https://www.google.com "StackBlitz live demo")
+## Demo [StackBlitz](https://www.google.com "StackBlitz live demo")
 
-###Upcoming updates
+### Upcoming updates
 * **Responsiveness:** make this code mobile-friendly;
 * **Animations:** animate transitions between old and new positions;
 * **Usability:** make pure JavaScript version of code.
 * **Functionality:** Dragging from one Array to the other
 
 
-###Want to contribute?
+### Want to contribute?
 Make a pull request!
 
-#Getting started
+# Getting started
 
 * [Getting started - installation](#Installation)
 * [Guide - how to use (live examples)](#How to use)
@@ -21,7 +21,7 @@ Make a pull request!
   * [Example #2 - toggable drag & drop](`#Example #1`)
   * [Example #3 - reorder callback + update array](`#Example #1`)
 
-##Installation
+## Installation
 ###### #1 Install package
 Run `npm install @rr2/drag-n-drop --save`
 
@@ -49,9 +49,9 @@ import {DragNDropModule} from '@rr2/drag-n-drop';
 ```
 
 
-##How to use
+## How to use
 
-####Example #1 [live demo](https://stackblitz.com/edit/drag-n-drop-example-1 "StackBlitz Example 1")
+#### Example #1 [live demo](https://stackblitz.com/edit/drag-n-drop-example-1 "StackBlitz Example 1")
 
 Most simple example using `*ngFor` and `display: flex`
 
@@ -88,12 +88,12 @@ In your template file:
 </div>
 ```
 
-####Example #2 [live demo](https://stackblitz.com/edit/drag-n-drop-example-2 "StackBlitz Example 1")
+#### Example #2 [live demo](https://stackblitz.com/edit/drag-n-drop-example-2 "StackBlitz Example 1")
 
 ###### Toggleable drag and drop with some animations and more styling
 
 
-####Example #3 [live demo](https://stackblitz.com/edit/drag-n-drop-example-3 "StackBlitz Example 1")
+#### Example #3 [live demo](https://stackblitz.com/edit/drag-n-drop-example-3 "StackBlitz Example 1")
 
 ###### Reorder callback
 
@@ -138,4 +138,3 @@ export class ... {
     }
 }
 ```
-
