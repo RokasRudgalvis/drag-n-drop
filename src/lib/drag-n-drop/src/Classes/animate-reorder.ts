@@ -76,7 +76,7 @@ export class AnimateReorder {
             return;
         }
 
-        return new Promise((resolve): number => {
+        return <number><unknown>new Promise((resolve) => {
 
             let listening = false;
 
