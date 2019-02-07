@@ -6,11 +6,16 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./other.component.less'],
 })
 export class OtherComponent implements OnInit {
+  //@Ou
   @Input() data: any;
 
   constructor() { }
 
   ngOnInit() {
   }
+
+ /* emitClose() {
+    this.
+  }*/
 
 }

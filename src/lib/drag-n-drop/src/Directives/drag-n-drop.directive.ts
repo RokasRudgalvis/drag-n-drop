@@ -1,12 +1,17 @@
 import {Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {DragNDropItem} from '../Classes/drag-n-drop-item';
 import {Subscription} from 'rxjs';
+import {AnimateReorder} from '../Classes/animate-reorder';
 
 @Directive({
-    selector: '[dragNDrop]'
+    selector: '[dragNDrop]',
+    providers: [
+        AnimateReorder
+    ]
 })
 export class DragNDropDirective implements OnInit, OnDestroy {
     @Output() reorder = new EventEmitter<{ from: number, to: number }>();
+    private clone: HTMLElement;
 
     @Input() set dragNDrop(control: { array: any[], enabled: boolean }) {
         this.array = control.array;
@@ -24,13 +29,14 @@ export class DragNDropDirective implements OnInit, OnDestroy {
 
     private itemsContainer: HTMLElement;
 
-    constructor(private hostRef: ElementRef) {
+    constructor(private hostRef: ElementRef,
+                private animateReorder: AnimateReorder) {
     }
 
-    /*
-    * After component is initiated get all children
-    * of a draggable items wrapper
-    * */
+    /**
+     * After component is initiated get all children
+     * of a draggable items wrapper
+     * */
     ngOnInit() {
         this.itemsContainer = this.hostRef.nativeElement;
         this.getItems().then(() => {
@@ -38,10 +44,10 @@ export class DragNDropDirective implements OnInit, OnDestroy {
         });
     }
 
-    /*
-    * Unsubscribe from all subscriptions on directive desroy
-    * to prevent memory leaks
-    * */
+    /**
+     * Unsubscribe from all subscriptions on directive desroy
+     * to prevent memory leaks
+     * */
     ngOnDestroy() {
         this._S.forEach(s => s.unsubscribe());
     }
@@ -69,14 +75,6 @@ export class DragNDropDirective implements OnInit, OnDestroy {
         });
     }
 
-    private async wait(delay) {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve();
-            }, delay);
-        });
-    }
-
     /**
      * Gets HTML items
      * Constructs class for each item
@@ -86,6 +84,8 @@ export class DragNDropDirective implements OnInit, OnDestroy {
         for (let i = 0; i < items.length; i++) {
             this.items.push(new DragNDropItem(<HTMLElement>items[i], i));
         }
+
+        //
 
         return 0;
     }
@@ -109,24 +109,84 @@ export class DragNDropDirective implements OnInit, OnDestroy {
     }
 
     private reorderArray(change: { from: number; to: number }) {
+        // Emit the change to outside the directive
         this.reorder.emit(change);
 
-        const movedItem = this.array.splice(change.from, 1)[0];
-        this.array.splice(change.to, 0, movedItem);
+        // Prepare animation by populating service with data
+        this.animateReorder.previousArray = this.array;
+        this.animateReorder.previousItems = this.items;
+        this.animateReorder.container = this.hostRef;
+        this.animateReorder.prepareForAnimation(change.from);
 
-        const movedReference = this.items.splice(change.from, 1)[0];
-        this.items.splice(change.to, 0, movedReference);
+        // Item as in array element
+        const movedArrayElement = this.array.splice(change.from, 1)[0];
+        this.array.splice(change.to, 0, movedArrayElement);
+
+        // Reference as in actual HTML element
+        const movedHtmlElement = this.items.splice(change.from, 1)[0];
+        this.items.splice(change.to, 0, movedHtmlElement);
 
         // Update indexes
         setTimeout(() => { // Needs to be on the other CPU tick to notice change
+            this.animateReorder.newArray = this.array;
+            this.animateReorder.newItems = this.items;
+            this.animateReorder.performAnimation(change.from).then((pickedElementsIndex) => {
+                this.items.forEach((item, index) => {
+                    if (index !== pickedElementsIndex) {
+                        // item.removeClones();
+                    }
+                });
+            });
             this.updateIndexes();
-        });
+        }, 0);
     }
 
+    /**
+     * Updates every DragNDropItem classes' index attribute
+     * according to actual DOM position
+     **/
     private async updateIndexes() {
         const items = await this.itemsContainer.children;
         for (let i = 0; i < items.length; i++) {
             this.items[i].currentIndex = i;
         }
     }
+
+    /**
+     * Helper function to do async wait
+     **/
+    protected async wait(delay) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, delay);
+        });
+    }
+
+    private makeCopy() {
+        const getElementMargin = () => {
+            let elementHeight = this.hostRef.nativeElement.clientHeight;  // height with padding
+
+            elementHeight += parseFloat(getComputedStyle(this.hostRef.nativeElement).marginTop);
+            return parseFloat(getComputedStyle(this.hostRef.nativeElement).marginTop);
+        };
+
+        // Remove clone
+        if (this.clone) {
+            this.hostRef.nativeElement.parentNode.removeChild(this.clone);
+        }
+
+        // Clone current draggable container
+        this.clone = this.hostRef.nativeElement.cloneNode(true);
+
+        // Height to 0 so it would not impact document layout
+        this.clone.style.height = '0';
+
+        // Move clone to cover original element
+        this.clone.style.transform = `translateY(${getElementMargin()}px)`;
+
+        this.hostRef.nativeElement.parentNode.insertBefore(this.clone, this.hostRef.nativeElement);
+    }
+
+
 }
