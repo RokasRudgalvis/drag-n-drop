@@ -1,11 +1,11 @@
 # Angular Drag and Drop sorting grid
 Angular directive that allows you to build any type of sortable array HTML structure using native JavaScript mouse events. 
 
-## Demo [StackBlitz](https://www.google.com "StackBlitz live demo")
+## Demo [StackBlitz](https://drag-n-drop-demo.stackblitz.io/ "StackBlitz live demo")
 
 ### Upcoming updates
 * **Responsiveness:** make this code mobile-friendly;
-* **Animations:** animate transitions between old and new positions;
+* **Animations:** animate transitions between old and new positions; (done v1.2.0)
 * **Usability:** make pure JavaScript version of code.
 * **Functionality:** Dragging from one Array to the other
 
