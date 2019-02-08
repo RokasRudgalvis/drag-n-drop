@@ -18,7 +18,7 @@ Make a pull request!
 * [Getting started - installation](#Installation)
 * [Guide - how to use (live examples)](#How-to-use)
   * [Example #1 - flexbox](#Example-1)
-  * [Example #2 - toggable drag & drop](#Example-2`)
+  * [Example #2 - toggable drag & drop](#Example-2)
   * [Example #3 - reorder callback + update array](#Example-3)
 
 ## Installation
