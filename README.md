@@ -51,7 +51,9 @@ import {DragNDropModule} from '@rr2/drag-n-drop';
 
 ## How to use
 
-#### Example 1 [Live demo](https://stackblitz.com/edit/drag-n-drop-example-1 "StackBlitz Example 1")
+#### Example 1 
+
+[Live demo](https://stackblitz.com/edit/drag-n-drop-example-1 "StackBlitz Example 1")
 
 Most simple example using `*ngFor` and `display: flex`
 
@@ -88,12 +90,16 @@ In your template file:
 </div>
 ```
 
-#### Example 2 [live demo](https://stackblitz.com/edit/drag-n-drop-example-2 "StackBlitz Example 1")
+#### Example 2 
+
+[live demo](https://stackblitz.com/edit/drag-n-drop-example-2 "StackBlitz Example 1")
 
 ###### Toggleable drag and drop with some animations and more styling
 
 
-#### Example 3 [live demo](https://stackblitz.com/edit/drag-n-drop-example-3 "StackBlitz Example 1")
+#### Example 3 
+
+[live demo](https://stackblitz.com/edit/drag-n-drop-example-3 "StackBlitz Example 1")
 
 ###### Reorder callback
 
