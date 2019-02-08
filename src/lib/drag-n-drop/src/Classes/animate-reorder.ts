@@ -45,14 +45,20 @@ export class AnimateReorder {
         };
     }
 
-    prepareForAnimation(pickedElementsIndex: number) {
+    /**
+     * Creates copy of the original container
+     * Inserts the copy into the DOM and
+     * hides original container.
+     * Make sure to run this before performing reorder animations
+     **/
+    prepareForAnimation(pickedElementsIndex: number): void {
         if (!this._items || !this.container) {
             return;
         }
 
-        // Make container copy, it will be animate
+        // Make original container copy, it will be animate
         this.makeContainerCopy().then(() => {
-            // Make container invisible
+            // Make original container invisible
             this.container.nativeElement.style.visibility = 'hidden';
 
             this._items.forEach(async (item, index) => {
@@ -66,11 +72,15 @@ export class AnimateReorder {
                 }
             });
 
-            // Insert animation container
+            // Insert animation (the copy of original) container
             this.container.nativeElement.parentNode.insertBefore(this._animationContainer, this.container.nativeElement);
         });
     }
 
+    /**
+     * Performs interpolation between two positions
+     * for each DOM element which has to move
+     **/
     async performAnimation(pickedElementsIndex: number): Promise<number> {
         if (!this._items || !this.container) {
             return;
@@ -92,9 +102,10 @@ export class AnimateReorder {
                     // Set transition animations
                     item.element.style.transition = `transform .3s ease`;
 
+                    // Checks if listening for the transition end
                     if (!listening) {
                         item.element.addEventListener('transitionend', () => {
-                            // Remove animation element
+                            // Remove animation container from DOM
                             this._animationContainer.parentElement.removeChild(this._animationContainer);
                             this.container.nativeElement.style.visibility = null;
                             resolve(pickedElementsIndex);
