@@ -51,9 +51,7 @@ import {DragNDropModule} from '@rr2/drag-n-drop';
 
 ## How to use
 
-#### Example 1 
-
-[Live demo](https://stackblitz.com/edit/drag-n-drop-example-1 "StackBlitz Example 1")
+#### Example 1 [Live demo](https://stackblitz.com/edit/drag-n-drop-example-1 "StackBlitz Example 1")
 
 Most simple example using `*ngFor` and `display: flex`
 
